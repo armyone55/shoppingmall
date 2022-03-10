@@ -29,4 +29,11 @@ class MyConstant {
       TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.w700);
   TextStyle h3Style() =>
       TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.normal);
+
+  ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(
+        primary: MyConstant.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      );
 }
