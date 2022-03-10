@@ -20,6 +20,7 @@ class _AuthenState extends State<Authen> {
           children: [
             buildImage(size),
             buildAppName(),
+            TextFormField(),
           ],
         ),
       ),
