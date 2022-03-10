@@ -11,6 +11,8 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
+  bool statusRedEye = true;
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -20,22 +22,85 @@ class _AuthenState extends State<Authen> {
           children: [
             buildImage(size),
             buildAppName(),
-            TextFormField(),
+            buildUser(size),
+            buildPassword(size),
           ],
         ),
       ),
     );
   }
 
-  Row buildAppName() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ShowTitle(
-                title: MyConstant.appName,
-                textStyle: MyConstant().h1Style(),
+  Row buildUser(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 15),
+          width: size * 0.6,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: MyConstant().h3Style(),
+              labelText: 'user :',
+              prefixIcon: Icon(
+                Icons.account_circle,
+                color: MyConstant.dart,
               ),
-            ],
-          );
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildPassword(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 15),
+          width: size * 0.6,
+          child: TextFormField(
+            obscureText: statusRedEye,
+            decoration: InputDecoration(
+              labelStyle: MyConstant().h3Style(),
+              labelText: 'password :',
+              prefixIcon: Icon(
+                Icons.lock_outline,
+                color: MyConstant.dart,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildAppName() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ShowTitle(
+          title: MyConstant.appName,
+          textStyle: MyConstant().h1Style(),
+        ),
+      ],
+    );
   }
 
   Row buildImage(double size) {
