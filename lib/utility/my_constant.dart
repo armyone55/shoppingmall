@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyConstant {
 //Genernal
-  static String appName ='Shoppping Mall';
+  static String appName = 'Shoppping Mall';
 
   //Route
   static String routeAuthen = '/auten';
@@ -18,24 +18,15 @@ class MyConstant {
   static String image4 = 'images/image4.png';
 
 //color
-  static Color primary = Color.fromARGB(0, 202, 11, 11);
-  static Color dart = Color.fromARGB(0, 18, 133, 18);
-  static Color light = Color.fromARGB(0, 37, 65, 26);
+  static Color primary = new Color(0xff45bf11);
+  static Color dart = new Color(0xff7ef34f);
+  static Color light = new Color(0xff008e00);
 
   //style
-  TextStyle h1Style() => TextStyle(
-        fontSize: 24,
-        color: dart,
-        fontWeight: FontWeight.bold
-      );
-      TextStyle h2Style() => TextStyle(
-        fontSize: 24,
-        color: dart,
-        fontWeight: FontWeight.w700
-      );
-      TextStyle h3Style() => TextStyle(
-        fontSize: 24,
-        color: dart,
-        fontWeight: FontWeight.normal
-      );
+  TextStyle h1Style() =>
+      TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.bold);
+  TextStyle h2Style() =>
+      TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.w700);
+  TextStyle h3Style() =>
+      TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.normal);
 }
