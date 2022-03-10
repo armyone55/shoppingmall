@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyConstant {
 //Genernal
-  static String appName = 'Shoppping Mall';
+  static String appName = 'Smartglyph';
 
   //Route
   static String routeAuthen = '/auten';
@@ -18,9 +18,9 @@ class MyConstant {
   static String image4 = 'images/image4.png';
 
 //color
-  static Color primary = new Color(0xff45bf11);
-  static Color dart = new Color(0xff7ef34f);
-  static Color light = new Color(0xff008e00);
+  static Color primary = new Color(0xff33691e);
+  static Color dart = new Color(0xff629749);
+  static Color light = new Color(0xff003d00);
 
   //style
   TextStyle h1Style() =>

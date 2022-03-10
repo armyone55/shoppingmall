@@ -35,8 +35,8 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 15),
-          width: size * 0.6,
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.8,
           child: TextFormField(
             decoration: InputDecoration(
               labelStyle: MyConstant().h3Style(),
@@ -66,10 +66,25 @@ class _AuthenState extends State<Authen> {
       children: [
         Container(
           margin: EdgeInsets.only(top: 15),
-          width: size * 0.6,
+          width: size * 0.8,
           child: TextFormField(
             obscureText: statusRedEye,
             decoration: InputDecoration(
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      statusRedEye = !statusRedEye;
+                    });
+                  },
+                  icon: statusRedEye
+                      ? Icon(
+                          Icons.remove_red_eye,
+                          color: MyConstant.dart,
+                        )
+                      : Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: MyConstant.dart,
+                        )),
               labelStyle: MyConstant().h3Style(),
               labelText: 'password :',
               prefixIcon: Icon(
@@ -109,7 +124,7 @@ class _AuthenState extends State<Authen> {
       children: [
         Container(
           width: size * 0.6,
-          child: ShowImage(path: MyConstant.image3),
+          child: ShowImage(path: MyConstant.image2),
         ),
       ],
     );
