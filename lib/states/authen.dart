@@ -16,7 +16,7 @@ class _AuthenState extends State<Authen> {
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return Scaffold(backgroundColor:MyConstant.primary,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(
