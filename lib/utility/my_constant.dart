@@ -7,9 +7,9 @@ class MyConstant {
   //Route
   static String routeAuthen = '/auten';
   static String routeCreateAccount = '/createAcconut';
-  static String routeBuyerService = 'buyerSevice';
-  static String routeSalerService = 'salerSevice';
-  static String routeRiderSevice = 'riderSevice';
+  static String routeBuyerService = '/buyerSevice';
+  static String routeSalerService = '/salerSevice';
+  static String routeRiderSevice = '/riderSevice';
 
   //Image
   static String image1 = 'images/image1.png';
@@ -26,9 +26,9 @@ class MyConstant {
   TextStyle h1Style() =>
       TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.bold);
   TextStyle h2Style() =>
-      TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.w700);
+      TextStyle(fontSize: 18, color: dart, fontWeight: FontWeight.w700);
   TextStyle h3Style() =>
-      TextStyle(fontSize: 24, color: dart, fontWeight: FontWeight.normal);
+      TextStyle(fontSize: 14, color: dart, fontWeight: FontWeight.normal);
 
   ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(
         primary: MyConstant.primary,

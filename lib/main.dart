@@ -9,9 +9,9 @@ import 'package:shoppingmall/utility/my_constant.dart';
 final Map<String, WidgetBuilder> map = {
   '/auten': (BuildContext context) => Authen(),
   '/createAcconut': (BuildContext context) => CreateAccount(),
-  'buyerSevice': (BuildContext context) => BuyerService(),
-  'salerSevice': (BuildContext context) => SalerSevice(),
-  'riderSevice': (BuildContext context) => RiderSevice(),
+  '/buyerSevice': (BuildContext context) => BuyerService(),
+  '/salerSevice': (BuildContext context) => SalerSevice(),
+  '/riderSevice': (BuildContext context) => RiderSevice(),
 };
 
 String? initlalRoule;
