@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingmall/utility/my_constant.dart';
+import 'package:shoppingmall/widgets/show_image.dart';
 import 'package:shoppingmall/widgets/show_title.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -11,6 +12,7 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   String? typeUser;
+
   Row buildName(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -41,6 +43,96 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
+  Row buildPhone(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.8,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: MyConstant().h3Style(),
+              labelText: 'Phone :',
+              prefixIcon: Icon(
+                Icons.phone_in_talk,
+                color: MyConstant.dart,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildUser(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.8,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: MyConstant().h3Style(),
+              labelText: 'User :',
+              prefixIcon: Icon(
+                Icons.account_circle,
+                color: MyConstant.dart,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildPassword(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.8,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: MyConstant().h3Style(),
+              labelText: 'Password :',
+              prefixIcon: Icon(
+                Icons.password_sharp,
+                color: MyConstant.dart,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -49,17 +141,60 @@ class _CreateAccountState extends State<CreateAccount> {
         title: Text('Create New Account'),
         backgroundColor: MyConstant.primary,
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          buildTitle('ข้อมูลทั่วไป'),
-          buildName(size),
-          buildTitle('ชนิดของ User :'),
-          buildRadiobuyer(size),
-          buildRadioSeller(size),
-          buildRadioRider(size),
-        ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        behavior: HitTestBehavior.opaque,
+        child: ListView(
+          padding: EdgeInsets.all(16),
+          children: [
+            buildTitle('ข้อมูลทั่วไป'),
+            buildName(size),
+            buildTitle('ชนิดของ User :'),
+            buildRadiobuyer(size),
+            buildRadioSeller(size),
+            buildRadioRider(size),
+            buildTitle('ข้อมูลพื้นฐาน'),
+            buildAddress(size),
+            buildPhone(size),
+            buildUser(size),
+            buildPassword(size),
+            buildTitle('รูปภาพ'),
+            buildSubTitle(),
+            Row(crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add_a_photo,
+                    size: 36,color: MyConstant.dart,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 16),
+                  width: size * 0.5,
+                  child: ShowImage(path: MyConstant.avatar),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 36,color:MyConstant.dart ,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  ShowTitle buildSubTitle() {
+    return ShowTitle(
+      title:
+          'เป็นรูปภาพ ที่แสดงความเป็นตัวตนของ User (แต่ถ้าไม่สะดวกแชร์เราจะแสดงภาพ default',
+      textStyle: MyConstant().h3Style(),
     );
   }
 
@@ -80,6 +215,40 @@ class _CreateAccountState extends State<CreateAccount> {
             title: ShowTitle(
               title: 'ผู้ซื้อ (Buyer)',
               textStyle: MyConstant().h3Style(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildAddress(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.8,
+          child: TextFormField(
+            maxLines: 4,
+            decoration: InputDecoration(
+              hintText: 'Address :',
+              hintStyle: MyConstant().h3Style(),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+                child: Icon(
+                  Icons.home,
+                  color: MyConstant.dart,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.dart),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyConstant.light),
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
           ),
         ),
