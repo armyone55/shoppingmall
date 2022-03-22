@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shoppingmall/utility/my_constant.dart';
 import 'package:shoppingmall/utility/my_dialog.dart';
 import 'package:shoppingmall/widgets/show_image.dart';
+import 'package:shoppingmall/widgets/show_progress.dart';
 import 'package:shoppingmall/widgets/show_title.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -17,23 +19,65 @@ class CreateAccount extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccount> {
   String? typeUser;
   File? file;
+  double? lat, lng;
 
   @override
   void initState() {
     super.initState();
-    FindLatLng();
+    checkPermission();
   }
 
-  Future<Null> FindLatLng() async {
+  Future<Null> checkPermission() async {
     bool locationService;
     LocationPermission locationPermission;
 
     locationService = await Geolocator.isLocationServiceEnabled();
     if (locationService) {
       print('Service Location Open');
+
+      locationPermission = await Geolocator.checkPermission();
+      if (locationPermission == LocationPermission.denied) {
+        locationPermission = await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDailog().alertLocationServeice(
+              context, 'ไม่อนุณาตแชร์ Lacation', 'โปรดแชร์ Location');
+        } else {
+          //Find LatLng()
+          findLatLng();
+        }
+      } else {
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDailog().alertLocationServeice(
+              context, 'ไม่อนุณาตแชร์ Lacation', 'โปรดแชร์ Location');
+        } else {
+          // Find LatLng
+          findLatLng();
+        }
+      }
     } else {
       print('Service Location Close');
-      MyDailog().alertLocationServeice(context);
+      MyDailog().alertLocationServeice(context, 'Location Service ปิดอยู่ ?',
+          'กรุณาเปิด Location Service ด้วยครับ');
+    }
+  }
+
+  Future<Null> findLatLng() async {
+    print('findLatLan ==> Work');
+    Position? position = await findPostion();
+    setState(() {
+      lat = position!.latitude;
+      lng = position.longitude;
+      print('lat=$lat,lng =$lng');
+    });
+  }
+
+  Future<Position?> findPostion() async {
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition();
+      return position;
+    } catch (e) {
+      return null;
     }
   }
 
@@ -184,12 +228,37 @@ class _CreateAccountState extends State<CreateAccount> {
             buildPassword(size),
             buildTitle('รูปภาพ'),
             buildSubTitle(),
-            buildAvatar(size)
+            buildAvatar(size),
+            buildTitle('ตำแหน่งของคุณ'),
+            buildmap(),
           ],
         ),
       ),
     );
   }
+
+  Set<Marker> setMarker() => <Marker>[
+        Marker(
+          markerId: MarkerId('Id'),
+          position: LatLng(lat!,lng!),
+          infoWindow: InfoWindow(title: 'คุณอยู่ที่นี่',snippet: 'Lat = $lat, lng =$lng'),
+        ),
+      ].toSet();
+
+  Widget buildmap() => Container(
+        width: double.infinity,
+        height: 300,
+        child: lat == null
+            ? ShowProgress()
+            : GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(lat!, lng!),
+                  zoom: 16,
+                ),
+                onMapCreated: (controller) {},
+                markers: setMarker(),
+              ),
+      );
 
   Future<Null> chooseImage(ImageSource source) async {
     try {
