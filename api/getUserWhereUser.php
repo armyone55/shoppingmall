@@ -18,9 +18,9 @@ if (!$link->set_charset("utf8")) {
 if (isset($_GET)) {
 	if ($_GET['isAdd'] == 'true') {
 				
-		$id = $_GET['id'];
+		$user = $_GET['user'];
 
-		$result = mysqli_query($link, "SELECT * FROM user WHERE id = '$id'");
+		$result = mysqli_query($link, "SELECT * FROM user WHERE user = '$user'");
 
 		if ($result) {
 
