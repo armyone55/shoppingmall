@@ -12,26 +12,33 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   bool statusRedEye = true;
+  final formkey = GlobalKey<FormState>();
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    return Scaffold(backgroundColor:MyConstant.primary,
+    return Scaffold(
+      backgroundColor: MyConstant.primary,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(
             FocusNode(),
           ),
           behavior: HitTestBehavior.opaque,
-          child: ListView(
-            children: [
-              buildImage(size),
-              buildAppName(),
-              buildUser(size),
-              buildPassword(size),
-              buildlogin(size),
-              buildCreateAccount(),
-            ],
+          child: Form(
+            key: formkey,
+            child: ListView(
+              children: [
+                buildImage(size),
+                buildAppName(),
+                buildUser(size),
+                buildPassword(size),
+                buildlogin(size),
+                buildCreateAccount(),
+              ],
+            ),
           ),
         ),
       ),
@@ -40,18 +47,19 @@ class _AuthenState extends State<Authen> {
 
   Row buildCreateAccount() {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ShowTitle(
-                  title: 'Non Account ?',
-                  textStyle: MyConstant().h2Style(),
-                ),
-                TextButton(
-                  onPressed: () =>Navigator.pushNamed(context, MyConstant.routeCreateAccount),
-                  child: Text('Create Account'),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ShowTitle(
+          title: 'Non Account ?',
+          textStyle: MyConstant().h2Style(),
+        ),
+        TextButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, MyConstant.routeCreateAccount),
+          child: Text('Create Account'),
+        ),
+      ],
+    );
   }
 
   Row buildlogin(double size) {
@@ -63,7 +71,13 @@ class _AuthenState extends State<Authen> {
           width: size * 0.6,
           child: ElevatedButton(
             style: MyConstant().myButtonStyle(),
-            onPressed: () {},
+            onPressed: () {
+              if (formkey.currentState!.validate()) {
+                String user = userController.text;
+                String password = passwordController.text;
+                print('## user = $user, password = $password');
+              }
+            },
             child: Text('Login'),
           ),
         ),
@@ -79,6 +93,14 @@ class _AuthenState extends State<Authen> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.8,
           child: TextFormField(
+            controller: userController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please fill User in Blank';
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               labelStyle: MyConstant().h3Style(),
               labelText: 'user :',
@@ -109,6 +131,14 @@ class _AuthenState extends State<Authen> {
           margin: EdgeInsets.only(top: 15),
           width: size * 0.8,
           child: TextFormField(
+            controller: passwordController,
+            validator: ((value) {
+              if (value!.isEmpty) {
+                return 'Please Fill Password in Blank';
+              } else {
+                return null;
+              }
+            }),
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
