@@ -26,10 +26,10 @@ if (isset($_GET)) {
 		$password = $_GET['password'];
 		$avatar = $_GET['avatar'];
 		$lat = $_GET['lat'];
-		$lng= $_GET['lng'];
+		$lng = $_GET['lng'];
 		
 							
-		$sql = "INSERT INTO `user`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avatar`, `lat`, `lng`) VALUES (Null,''$name'',''$type'',''$address'',''$phone'',''$user'',''$password'',''$avatar'',''$lat'',''$lng'')";
+		$sql = "INSERT INTO `user`(`id`, `name`, `type`, `address`, `phone`, `user`, `password`, `avatar`, `lat`, `lng`) VALUES (Null,'$name','$type','$address','$phone','$user','$password','$avatar','$lat','$lng')";
 
 		$result = mysqli_query($link, $sql);
 
